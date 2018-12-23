@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <title>Number Check</title>
+    </head>
+    <body>
+        <div class="container">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="number" class="form-control" id="codigo" aria-describedby="emailHelp" placeholder="Coloque o código" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Validar</button>
+        </form>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="temCod" hidden>
+                Código <strong>valido</strong>.
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="naotemCod" hidden>
+                Código <strong>invalido</strong>.
+        </div>
+    </div>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            jQuery('form').on('submit',function(e){
+                let yup = false;
+                e.preventDefault();
+                $.getJSON('data.json', function(data) {
+                    $.map(data.code,function(el){
+                        if (el == $('#codigo').val()) {
+                            yup = true;
+                        }
+                    });
+                    if (yup) {
+                        $('#temCod').removeAttr('hidden');
+                        setInterval(function(){
+                            $('#temCod').attr('hidden','hidden');
+                        },1500)
+                    } else {
+                        $('#naotemCod').removeAttr('hidden');
+                        setInterval(function(){
+                            $('#naotemCod').attr('hidden','hidden');
+                        },1500)
+                    }
+
+                });
+            });
+        </script>
+    </body>
+</html>
